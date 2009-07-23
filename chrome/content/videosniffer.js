@@ -36,15 +36,16 @@ var VideoSniffer = {
     },
 
     buildMenu: function(menu) {
+        /* FIXME: We don't need to recreate menu every time */
         /* Cleanup the menu */
-        while (menu.hasChildNodes())
-            menu.removeChild(menu.lastChild);
+        while (menu.firstChild.id != "videosniffer-collected-separator")
+            menu.removeChild(menu.firstChild);
 
         if (VideoSniffer.urls) {
             for (i in VideoSniffer.urls) {
                 var menuitem = document.createElement("menuitem");
                 menuitem.setAttribute("label", VideoSniffer.urls[i]);
-                menu.appendChild(menuitem);
+                menu.insertBefore(menuitem, menu.firstChild);
             }
         }
     },

@@ -8,13 +8,15 @@
   <script type="application/javascript" src="videosniffer.js"/>
 
   <popup id="contentAreaContextMenu">
-    <menu id="videosniffer-download"
-      label="&downloadVideo.label;"
-      insertafter="context-openlink">
-      <menupopup id="videosniffer-download-menu"
-        oncommand="VideoSniffer.commanded(event);"
-        onpopupshowing="VideoSniffer.buildMenu(this);"
-        />
+    <menu id="videosniffer-collected"
+        label="&collectedvideos.label;">
+      <menupopup id="videosniffer-collected-menu"
+          oncommand="VideoSniffer.commanded(event);"
+          onpopupshowing="VideoSniffer.buildMenu(this);">
+        <menuseparator id="videosniffer-collected-separator"/>
+        <menuitem label="&clearvideos.label;"
+            oncommand="VideoSniffer.clearMenu(this);"/>
+      </menupopup>
     </menu>
   </popup>
 

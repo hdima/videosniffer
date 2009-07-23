@@ -1,3 +1,6 @@
 - Add pages at the top of the array not to the bottom
 - Add link "Clear links" at the bottom of the menu
 - Limit number of links in the menu
+- Eleminate menu rebuilding
+- Optimize with methods like menu.insertItemAt() (Works only in FF3.5?)
+- Doesn't work with YouTube?
