@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://videosniffer/locale/">
+
+<overlay id="observer-overlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/javascript" src="videosniffer.js"/>
+
+  <popup id="contentAreaContextMenu">
+    <menu id="videosniffer-download"
+      label="&downloadVideo.label;"
+      insertafter="context-openlink">
+      <menupopup id="videosniffer-download-menu"
+        oncommand="VideoSniffer.commanded(event);"
+        onpopupshowing="VideoSniffer.buildMenu(this);"
+        />
+    </menu>
+  </popup>
+
+</overlay>

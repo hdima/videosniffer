@@ -1,0 +1,3 @@
+- Add pages at the top of the array not to the bottom
+- Add link "Clear links" at the bottom of the menu
+- Limit number of links in the menu
