@@ -20,8 +20,6 @@
 
 var VideoSniffer = {
 
-    urls: new Object(),
-
     log: function(message) {
         var aConsoleService = Components.
             classes["@mozilla.org/consoleservice;1"].
@@ -40,19 +38,12 @@ var VideoSniffer = {
             menu.removeChild(menu.firstChild);
     },
 
-    buildMenu: function(menu) {
-        /* FIXME: We don't need to recreate menu every time */
-        VideoSniffer.clearMenu(menu);
-
-        if (VideoSniffer.urls) {
-            for (i in VideoSniffer.urls) {
-                var menuitem = document.createElement("menuitem");
-                menuitem.setAttribute("label", VideoSniffer.urls[i]);
-                menuitem.setAttribute("oncommand",
-                    "VideoSniffer.commanded(event);");
-                menu.insertBefore(menuitem, menu.firstChild);
-            }
-        }
+    addURL: function(url) {
+        var menu = document.getElementById("videosniffer-collected-menu");
+        var menuitem = document.createElement("menuitem");
+        menuitem.setAttribute("label", url);
+        menuitem.setAttribute("oncommand", "VideoSniffer.commanded(event);");
+        menu.insertBefore(menuitem, menu.firstChild);
     },
 
     observe: function(subject, topic, data) {
@@ -64,7 +55,7 @@ var VideoSniffer = {
             /* this.log("VideoSniffer: Type: " + type + " URL: " + uri); */
             if (type.search(/video\//i) == 0
                     || uri.search(/\.(flv|wmv|mpg|mpeg|avi|mp4)(\?.*)?$/i) >= 0) {
-                VideoSniffer.urls[uri] = uri;
+                this.addURL(uri);
             }
         }
     }
