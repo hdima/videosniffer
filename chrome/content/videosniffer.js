@@ -20,6 +20,8 @@
 
 var VideoSniffer = {
 
+    video_limit: 20,
+
     log: function(message) {
         var aConsoleService = Components.
             classes["@mozilla.org/consoleservice;1"].
@@ -41,11 +43,23 @@ var VideoSniffer = {
     addURL: function(url) {
         var menu = document.getElementById("videosniffer-collected-menu");
 
+        var n = 1;
         for (var i = menu.firstChild;
-                i.id != "videosniffer-collected-separator"; i = i.nextSibling)
-            if (i.getAttribute("label") == url) {
+                i.id != "videosniffer-collected-separator";
+                i = i.nextSibling) {
+            n += 1;
+            if (i.getAttribute("label") == url)
                 return;
+        }
+
+        if (n > this.video_limit) {
+            var sep = document.getElementById("videosniffer-collected-separator");
+            for (var i = sep.previousSibling; n > this.video_limit;
+                    i = i.previousSibling) {
+                n -= 1;
+                menu.removeChild(i);
             }
+        }
 
         var menuitem = document.createElement("menuitem");
         menuitem.setAttribute("label", url);
