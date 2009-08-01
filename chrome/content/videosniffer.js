@@ -1,5 +1,5 @@
 /*
- * Test observer.
+ * Vide sniffer.
  * Copyright (C) 2007-2008 Dmitry Vasiliev <dima@hlabs.spb.ru>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -35,16 +35,21 @@ var VideoSniffer = {
         event.stopPropagation();
     },
 
-    buildMenu: function(menu) {
-        /* FIXME: We don't need to recreate menu every time */
-        /* Cleanup the menu */
+    clearMenu: function(menu) {
         while (menu.firstChild.id != "videosniffer-collected-separator")
             menu.removeChild(menu.firstChild);
+    },
+
+    buildMenu: function(menu) {
+        /* FIXME: We don't need to recreate menu every time */
+        VideoSniffer.clearMenu(menu);
 
         if (VideoSniffer.urls) {
             for (i in VideoSniffer.urls) {
                 var menuitem = document.createElement("menuitem");
                 menuitem.setAttribute("label", VideoSniffer.urls[i]);
+                menuitem.setAttribute("oncommand",
+                    "VideoSniffer.commanded(event);");
                 menu.insertBefore(menuitem, menu.firstChild);
             }
         }
