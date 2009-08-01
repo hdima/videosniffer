@@ -36,8 +36,12 @@ var VideoSniffer = {
     },
 
     clearMenu: function(menu) {
-        while (menu.firstChild.id != "videosniffer-collected-separator")
+        while (menu.firstChild.id != "videosniffer-collected-separator"
+                && menu.firstChild.id != "videosniffer-collected-filler")
             menu.removeChild(menu.firstChild);
+        if (menu.firstChild.id != "videosniffer-collected-filler") {
+            menu.insertBefore(menu.filler, menu.firstChild);
+        }
     },
 
     addURL: function(url) {
@@ -59,6 +63,11 @@ var VideoSniffer = {
                 n -= 1;
                 menu.removeChild(i);
             }
+        }
+
+        if (menu.firstChild.id == "videosniffer-collected-filler") {
+            menu.filler = menu.firstChild;
+            menu.removeChild(menu.firstChild);
         }
 
         var menuitem = document.createElement("menuitem");

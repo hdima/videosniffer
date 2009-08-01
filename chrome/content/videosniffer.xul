@@ -11,6 +11,8 @@
     <menu id="videosniffer-collected"
         label="&collectedvideos.label;">
       <menupopup id="videosniffer-collected-menu">
+        <menuitem label="&filler.label;"
+            id="videosniffer-collected-filler" disabled="true" />
         <menuseparator id="videosniffer-collected-separator"/>
         <menuitem label="&clearvideos.label;"
             oncommand="VideoSniffer.clearMenu(this.parentNode);"/>
