@@ -1,4 +1,2 @@
-- Insert disabled menu item "No videos collected" than videos wasn't collected
-  yet
 - Save referrer to restore in download
 - Doesn't work with YouTube?
