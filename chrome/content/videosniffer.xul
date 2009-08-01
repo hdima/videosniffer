@@ -10,11 +10,10 @@
   <popup id="contentAreaContextMenu">
     <menu id="videosniffer-collected"
         label="&collectedvideos.label;">
-      <menupopup id="videosniffer-collected-menu"
-          onpopupshowing="VideoSniffer.buildMenu(this);">
+      <menupopup id="videosniffer-collected-menu">
         <menuseparator id="videosniffer-collected-separator"/>
         <menuitem label="&clearvideos.label;"
-            oncommand="VideoSniffer.clearMenu(this);"/>
+            oncommand="VideoSniffer.clearMenu(this.parentNode);"/>
       </menupopup>
     </menu>
   </popup>

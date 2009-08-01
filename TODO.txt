@@ -1,6 +1,6 @@
-- Add pages at the top of the array not to the bottom
-- Add link "Clear links" at the bottom of the menu
+- Insert disabled menu item "No videos collected" than videos wasn't collected
+  yet
 - Limit number of links in the menu
-- Eleminate menu rebuilding
+- Remove duplicate items
 - Optimize with methods like menu.insertItemAt() (Works only in FF3.5?)
 - Doesn't work with YouTube?
