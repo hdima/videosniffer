@@ -43,7 +43,7 @@ var VideoSniffer = {
 
         for (var i = menu.firstChild;
                 i.id != "videosniffer-collected-separator"; i = i.nextSibling)
-            if (i.label == url) {
+            if (i.getAttribute("label") == url) {
                 return;
             }
 
