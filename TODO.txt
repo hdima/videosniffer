@@ -1,6 +1,5 @@
 - Insert disabled menu item "No videos collected" than videos wasn't collected
   yet
 - Limit number of links in the menu
-- Remove duplicate items
 - Optimize with methods like menu.insertItemAt() (Works only in FF3.5?)
 - Doesn't work with YouTube?
