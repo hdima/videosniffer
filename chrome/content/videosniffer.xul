@@ -11,7 +11,6 @@
     <menu id="videosniffer-collected"
         label="&collectedvideos.label;">
       <menupopup id="videosniffer-collected-menu"
-          oncommand="VideoSniffer.commanded(event);"
           onpopupshowing="VideoSniffer.buildMenu(this);">
         <menuseparator id="videosniffer-collected-separator"/>
         <menuitem label="&clearvideos.label;"
