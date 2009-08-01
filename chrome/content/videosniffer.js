@@ -40,6 +40,13 @@ var VideoSniffer = {
 
     addURL: function(url) {
         var menu = document.getElementById("videosniffer-collected-menu");
+
+        for (var i = menu.firstChild;
+                i.id != "videosniffer-collected-separator"; i = i.nextSibling)
+            if (i.label == url) {
+                return;
+            }
+
         var menuitem = document.createElement("menuitem");
         menuitem.setAttribute("label", url);
         menuitem.setAttribute("oncommand", "VideoSniffer.commanded(event);");
@@ -51,11 +58,11 @@ var VideoSniffer = {
             var httpChannel = subject.QueryInterface(
                 Components.interfaces.nsIHttpChannel);
             var type = httpChannel.contentType;
-            var uri = httpChannel.URI.asciiSpec;
-            /* this.log("VideoSniffer: Type: " + type + " URL: " + uri); */
+            var url = httpChannel.URI.asciiSpec;
+            /* this.log("VideoSniffer: Type: " + type + " URL: " + url); */
             if (type.search(/video\//i) == 0
-                    || uri.search(/\.(flv|wmv|mpg|mpeg|avi|mp4)(\?.*)?$/i) >= 0) {
-                this.addURL(uri);
+                    || url.search(/\.(flv|wmv|mpg|mpeg|avi|mp4)(\?.*)?$/i) >= 0) {
+                this.addURL(url);
             }
         }
     }
