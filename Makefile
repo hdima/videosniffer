@@ -13,7 +13,7 @@ chrome/videosniffer.jar: chrome/content/* chrome/locale/en/*
 
 
 install: videosniffer-$(VERSION).xpi
-	$(BROWSER) $<
+	$(BROWSER) -no-remote -P dev $<
 
 clean-chrome:
 	$(RM) chrome/videosniffer.jar
