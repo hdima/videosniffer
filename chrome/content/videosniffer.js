@@ -1,6 +1,6 @@
 /*
- * Vide sniffer.
- * Copyright (C) 2007-2008 Dmitry Vasiliev <dima@hlabs.spb.ru>
+ * Video sniffer.
+ * Copyright (C) 2009 Dmitry Vasiliev <dima@hlabs.spb.ru>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
