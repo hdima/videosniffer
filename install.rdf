@@ -10,8 +10,8 @@
     <description>Video Sniffer</description>
     <homepageURL>http://hlabs.spb.ru/projects/videosniffer/</homepageURL>
     <id>{66FB5D3E-26B9-41C2-A374-9064CE877701}</id>
-    <name>Video sniffer</name>
-    <version>0.1</version>
+    <name>Video Sniffer</name>
+    <version>0.2</version>
 
     <targetApplication>
       <rdf:Description>
