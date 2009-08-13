@@ -1,2 +1,3 @@
+- New packaging scheme
 - Save referrer to restore in download
 - Doesn't work with YouTube?
