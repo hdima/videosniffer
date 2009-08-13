@@ -1,33 +1,24 @@
 <?xml version="1.0"?>
 
-<rdf:RDF
-  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-  xmlns="http://www.mozilla.org/2004/em-rdf#">
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
-  <rdf:Description about="urn:mozilla:install-manifest">
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>{66FB5D3E-26B9-41C2-A374-9064CE877701}</em:id>
+    <em:version>0.2</em:version>
+    <em:type>2</em:type>
+   
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>2.0</em:minVersion>
+        <em:maxVersion>3.5.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
 
-    <creator>Dmitry Vasiliev</creator>
-    <description>Video Sniffer</description>
-    <homepageURL>http://hlabs.spb.ru/projects/videosniffer/</homepageURL>
-    <id>{66FB5D3E-26B9-41C2-A374-9064CE877701}</id>
-    <name>Video Sniffer</name>
-    <version>0.2</version>
-
-    <targetApplication>
-      <rdf:Description>
-        <id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</id>
-        <minVersion>2.0</minVersion>
-        <maxVersion>3.5.*</maxVersion>
-      </rdf:Description>
-    </targetApplication>
-
-    <file>
-      <rdf:Description about="urn:mozilla:extension:file:videosniffer.jar">
-        <package>content/</package>
-        <locale>locale/en/</locale>
-      </rdf:Description>
-    </file>
-
-  </rdf:Description>
-
-</rdf:RDF>
+    <em:name>Video Sniffer</em:name>
+    <em:description>Sniff and collect video URLs for later download</em:description>
+    <em:creator>Dmitry Vasiliev</em:creator>
+    <em:homepageURL>http://hlabs.spb.ru/projects/videosniffer/</em:homepageURL>
+  </Description>      
+</RDF>

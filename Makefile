@@ -1,26 +1,16 @@
 VERSION = 0.2
 
 ZIP = zip -9 -r
-CD = cd
 RM = rm -f
 BROWSER = firefox
 
-videosniffer-$(VERSION).xpi: install.rdf chrome/videosniffer.jar
-	$(ZIP) $@ install.rdf chrome/videosniffer.jar
-
-chrome/videosniffer.jar: chrome/content/* chrome/locale/en/*
-	$(CD) chrome; $(ZIP) videosniffer.jar content locale
-
+videosniffer-$(VERSION).xpi: install.rdf chrome.manifest chrome/content/* chrome/locale/*
+	$(ZIP) $@ $^
 
 install: videosniffer-$(VERSION).xpi
 	$(BROWSER) -no-remote -P dev $<
 
-clean-chrome:
-	$(RM) chrome/videosniffer.jar
-
-clean-xpi:
+clean:
 	$(RM) videosniffer-$(VERSION).xpi
 
-clean: clean-xpi clean-chrome
-
-.PHONY: install clean clean-chrome clean-xpi
+.PHONY: install clean

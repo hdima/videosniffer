@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
 
-<!DOCTYPE overlay SYSTEM "chrome://videosniffer/locale/">
+<!DOCTYPE window SYSTEM "chrome://videosniffer/locale/videosniffer.dtd">
 
-<overlay id="observer-overlay"
+<overlay id="videosniffer"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <script type="application/javascript" src="videosniffer.js"/>
 
   <popup id="contentAreaContextMenu">
-    <menu id="videosniffer-collected"
-        label="&collectedvideos.label;">
+    <menu id="videosniffer-collected" label="&collectedvideos.label;">
       <menupopup id="videosniffer-collected-menu">
         <menuitem label="&filler.label;"
             id="videosniffer-collected-filler" disabled="true" />
