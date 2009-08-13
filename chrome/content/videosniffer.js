@@ -32,7 +32,7 @@ var VideoSniffer = {
     commanded: function(event) {
         var url = event.target.url;
         var referrer = event.target.referrer;
-        saveURL(url, null, null, true, false, referrer);
+        openUILinkIn(url, "current", false, null, referrer);
         event.stopPropagation();
     },
 

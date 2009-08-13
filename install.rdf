@@ -17,7 +17,7 @@
     </em:targetApplication>
 
     <em:name>Video Sniffer</em:name>
-    <em:description>Sniff and collect video URLs for later download</em:description>
+    <em:description>Sniff and collect URLs to video files for later download</em:description>
     <em:creator>Dmitry Vasiliev</em:creator>
     <em:homepageURL>http://hlabs.spb.ru/projects/videosniffer/</em:homepageURL>
   </Description>      
