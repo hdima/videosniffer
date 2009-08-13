@@ -1,0 +1,3 @@
+content videosniffer chrome/content/
+locale videosniffer en-US chrome/locale/en-US/
+overlay chrome://browser/content/browser.xul chrome://videosniffer/content/videosniffer.xul
