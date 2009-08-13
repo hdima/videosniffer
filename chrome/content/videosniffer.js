@@ -30,8 +30,9 @@ var VideoSniffer = {
     },
 
     commanded: function(event) {
-        var url = event.target.getAttribute("label");
-        openUILinkIn(url, "current");
+        var url = event.target.url;
+        var referrer = event.target.referrer;
+        saveURL(url, null, null, true, false, referrer);
         event.stopPropagation();
     },
 
@@ -44,18 +45,20 @@ var VideoSniffer = {
         }
     },
 
-    addURL: function(url) {
+    addURL: function(url, referrer) {
         var menu = document.getElementById("videosniffer-collected-menu");
 
+        /* Check for duplicates */
         var n = 1;
         for (var i = menu.firstChild;
                 i.id != "videosniffer-collected-separator";
                 i = i.nextSibling) {
             n += 1;
-            if (i.getAttribute("label") == url)
+            if (i.video_url == url)
                 return;
         }
 
+        /* Remove outdated items */
         if (n > this.video_limit) {
             var sep = document.getElementById("videosniffer-collected-separator");
             for (var i = sep.previousSibling; n > this.video_limit;
@@ -65,12 +68,16 @@ var VideoSniffer = {
             }
         }
 
+        /* Remove filler */
         if (menu.firstChild.id == "videosniffer-collected-filler") {
             menu.filler = menu.firstChild;
             menu.removeChild(menu.firstChild);
         }
 
+        /* Add new URL */
         var menuitem = document.createElement("menuitem");
+        menuitem.url = url;
+        menuitem.referrer = referrer;
         menuitem.setAttribute("label", url);
         menuitem.setAttribute("oncommand", "VideoSniffer.commanded(event);");
         menu.insertBefore(menuitem, menu.firstChild);
@@ -85,7 +92,10 @@ var VideoSniffer = {
             /* this.log("VideoSniffer: Type: " + type + " URL: " + url); */
             if (type.search(/video\//i) == 0
                     || url.search(/\.(flv|wmv|mpg|mpeg|avi|mp4)(\?.*)?$/i) >= 0) {
-                this.addURL(url);
+                var referrer = httpChannel.referrer;
+                if (referrer)
+                    referrer = referrer.asciiSpec;
+                this.addURL(url, referrer);
             }
         }
     }
