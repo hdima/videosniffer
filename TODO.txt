@@ -1,1 +1,3 @@
 - Option for number of collected videos
+- Show video length in menu
+- Option to limit videos by length?

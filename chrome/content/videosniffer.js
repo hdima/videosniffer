@@ -83,9 +83,8 @@ var VideoSniffer = {
             if (!httpChannel.requestSucceeded)
                 return;
             var type = httpChannel.contentType;
-            var url = httpChannel.URI.asciiSpec;
-            if (type.search(/video\//i) == 0
-                    || url.search(/\.(flv|wmv|mpg|mpeg|avi|mp4)(\?.*)?$/i) >= 0) {
+            if (type.match(/^video\//i)) {
+                var url = httpChannel.URI.asciiSpec;
                 var referrer = httpChannel.referrer;
                 if (referrer)
                     referrer = referrer.asciiSpec;
