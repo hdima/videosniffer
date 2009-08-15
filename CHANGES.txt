@@ -1,0 +1,13 @@
+0.3 (2009-08-??)
+
+- Show content type and size with video links
+- More robust video sniffing
+
+0.2 (2009-08-13)
+
+- Simplified package structure
+- Added handling for referrers
+
+0.1 (2009-08-03)
+
+- Initial release
