@@ -92,7 +92,8 @@ var VideoSniffer = {
             }
         }
     }
-};
+}
+
 
 function setup() {
     var observerService = Components.
