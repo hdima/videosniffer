@@ -1,4 +1,4 @@
-VERSION = 0.2
+VERSION = 0.3
 
 ZIP = zip -9 -r
 RM = rm -f
