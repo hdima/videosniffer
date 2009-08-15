@@ -22,13 +22,6 @@ var VideoSniffer = {
 
     video_limit: 20,
 
-    log: function(message) {
-        var aConsoleService = Components.
-            classes["@mozilla.org/consoleservice;1"].
-            getService(Components.interfaces.nsIConsoleService);
-        aConsoleService.logStringMessage(message);
-    },
-
     commanded: function(event) {
         var url = event.target.url;
         var referrer = event.target.referrer;
@@ -87,9 +80,10 @@ var VideoSniffer = {
         if (topic == "http-on-examine-response") {
             var httpChannel = subject.QueryInterface(
                 Components.interfaces.nsIHttpChannel);
+            if (!httpChannel.requestSucceeded)
+                return;
             var type = httpChannel.contentType;
             var url = httpChannel.URI.asciiSpec;
-            /* this.log("VideoSniffer: Type: " + type + " URL: " + url); */
             if (type.search(/video\//i) == 0
                     || url.search(/\.(flv|wmv|mpg|mpeg|avi|mp4)(\?.*)?$/i) >= 0) {
                 var referrer = httpChannel.referrer;
