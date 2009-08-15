@@ -1,3 +1,5 @@
+- Check URL for video file extensions only for 'application/octet-stream'?
 - Option for number of collected videos
-- Show video length in menu
+- Show video type and length in list (use nsIChannel.contentType and
+  nsIChannel.contentLength)
 - Option to limit videos by length?
