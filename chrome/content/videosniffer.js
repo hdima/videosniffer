@@ -111,24 +111,24 @@ function URIInfo(channel)
 
 URIInfo.prototype.getTitle = function()
 {
-    var type = "?";
-    parts = this.contentType.match(/^[^\/]*\/(.*)/);
-    if (parts.length > 1)
-        type = parts[1];
-
-    var size = this.contentLength < 0? "?": this.formatSize(this.contentLength);
-    return "(" + type + "/" + size + ") " + this.uri;
+    var type = this.contentType? this.contentType: "?";
+    var size = this.contentLength < 0? "?":
+        this.formatSize(this.contentLength);
+    return "(" + size + " " + type + ") " + this.uri;
 }
 
 URIInfo.prototype.formatSize = function(size)
 {
-    var suffixes = new Array("", "k", "M", "G", "T", "P");
+    var suffixes = new Array("", "K", "M", "G", "T", "P", "E", "Z", "Y");
     var i = 0;
     while (size > 1024) {
         size /= 1024;
         i++;
     }
-    return size.toFixed(1).toString() + suffixes[i];
+    var s = size.toFixed(1);
+    var cs = Math.ceil(s);
+    s = (cs == s)? cs: s
+    return s.toString() + suffixes[i];
 }
 
 

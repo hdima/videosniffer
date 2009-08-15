@@ -1,7 +1,5 @@
-- Remove trailing 0 from lengths
-- Check URL for video file extensions only for 'application/octet-stream'?
 - Option for number of collected videos
-- Option to limit videos by length?
 - Remove observer on shutdown??
 - Optimize video adding (use Object for duplicate check)
-- Maybe sniff content for content type?
+- On download we need to open action chooser not just open a link
+- Maybe sniff stream content for content type?

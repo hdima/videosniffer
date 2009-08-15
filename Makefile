@@ -4,16 +4,24 @@ ZIP = zip -9 -r
 RM = rm -f
 BROWSER = firefox
 
-videosniffer-$(VERSION).xpi: COPYING.txt install.rdf chrome.manifest chrome
+XPI=videosniffer-$(VERSION).xpi
+files := \
+	COPYING.txt \
+	install.rdf \
+	chrome.manifest \
+	$(wildcard chrome/content/*) \
+	$(wildcard chrome/locale/en-US/*)
+
+$(XPI): $(files)
 	$(ZIP) $@ $^
 
-install: videosniffer-$(VERSION).xpi
+install: $(XPI)
 	$(BROWSER) -no-remote -P dev $<
 
 start:
 	$(BROWSER) -no-remote -P dev
 
 clean:
-	$(RM) videosniffer-$(VERSION).xpi
+	$(RM) *.xpi
 
 .PHONY: install clean start
