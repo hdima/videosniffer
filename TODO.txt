@@ -4,3 +4,4 @@
   nsIChannel.contentLength)
 - Option to limit videos by length?
 - Remove observer on shutdown??
+- Optimize video adding (use Object for duplicate check)
