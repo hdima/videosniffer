@@ -22,14 +22,15 @@ var VideoSniffer = {
 
     video_limit: 20,
 
-    commanded: function(event) {
-        var url = event.target.url;
-        var referrer = event.target.referrer;
-        openUILinkIn(url, "current", false, null, referrer);
+    commanded: function(event)
+    {
+        var uri_info = event.target.uri_info;
+        openUILinkIn(uri_info.uri, "current", false, null, uri_info.referrer);
         event.stopPropagation();
     },
 
-    clearMenu: function(menu) {
+    clearMenu: function(menu)
+    {
         while (menu.firstChild.id != "videosniffer-collected-separator"
                 && menu.firstChild.id != "videosniffer-collected-filler")
             menu.removeChild(menu.firstChild);
@@ -38,16 +39,18 @@ var VideoSniffer = {
         }
     },
 
-    addURL: function(url, referrer) {
+    addURL: function(uri_info)
+    {
         var menu = document.getElementById("videosniffer-collected-menu");
 
         /* Check for duplicates */
         var n = 1;
         for (var i = menu.firstChild;
-                i.id != "videosniffer-collected-separator";
+                (i.id != "videosniffer-collected-separator"
+                 && i.id != "videosniffer-collected-filler");
                 i = i.nextSibling) {
             n += 1;
-            if (i.video_url == url)
+            if (i.uri_info.uri == uri_info.uri)
                 return;
         }
 
@@ -69,29 +72,63 @@ var VideoSniffer = {
 
         /* Add new URL */
         var menuitem = document.createElement("menuitem");
-        menuitem.url = url;
-        menuitem.referrer = referrer;
-        menuitem.setAttribute("label", url);
+        menuitem.uri_info = uri_info;
+        menuitem.setAttribute("label", uri_info.getTitle());
         menuitem.setAttribute("oncommand", "VideoSniffer.commanded(event);");
         menu.insertBefore(menuitem, menu.firstChild);
     },
 
-    observe: function(subject, topic, data) {
-        if (topic == "http-on-examine-response") {
-            var httpChannel = subject.QueryInterface(
-                Components.interfaces.nsIHttpChannel);
-            if (!httpChannel.requestSucceeded)
-                return;
-            var type = httpChannel.contentType;
-            if (type.match(/^video\//i)) {
-                var url = httpChannel.URI.asciiSpec;
-                var referrer = httpChannel.referrer;
-                if (referrer)
-                    referrer = referrer.asciiSpec;
-                this.addURL(url, referrer);
-            }
-        }
+    observe: function(subject, topic, data)
+    {
+        if (topic != "http-on-examine-response")
+            return
+        var channel = subject.QueryInterface(
+            Components.interfaces.nsIHttpChannel);
+        if (this.needToAdd(channel))
+            this.addURL(new URIInfo(channel));
+    },
+
+    needToAdd: function(channel)
+    {
+        return (channel.requestSucceeded
+            && (channel.contentType.match(/^video\//i)
+            || channel.URI.path.search(
+                /\.(flv|rm|wmv|asf|ogm|mkv|mpg|mpe|m1s|mp2v|m2v|m2s|mpeg|avi|mp4|3gp|mov|qt)(\?.*)?$/i) >= 0))
     }
+}
+
+
+function URIInfo(channel)
+{
+    this.uri = channel.URI.asciiSpec;
+    var referrer = channel.referrer;
+    if (referrer)
+        referrer = referrer.asciiSpec;
+    this.referrer = referrer;
+    this.contentType = channel.contentType;
+    this.contentLength = channel.contentLength;
+}
+
+URIInfo.prototype.getTitle = function()
+{
+    var type = "?";
+    parts = this.contentType.match(/^[^\/]*\/(.*)/);
+    if (parts.length > 1)
+        type = parts[1];
+
+    var size = this.contentLength < 0? "?": this.formatSize(this.contentLength);
+    return "(" + type + "/" + size + ") " + this.uri;
+}
+
+URIInfo.prototype.formatSize = function(size)
+{
+    var suffixes = new Array("", "k", "M", "G", "T", "P");
+    var i = 0;
+    while (size > 1024) {
+        size /= 1024;
+        i++;
+    }
+    return size.toFixed(1).toString() + suffixes[i];
 }
 
 
