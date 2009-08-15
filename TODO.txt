@@ -3,3 +3,4 @@
 - Show video type and length in list (use nsIChannel.contentType and
   nsIChannel.contentLength)
 - Option to limit videos by length?
+- Remove observer on shutdown??
