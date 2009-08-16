@@ -1,4 +1,5 @@
 - Option for number of collected videos
 - Remove observer on shutdown??
+- Guess content type on filename extensions and show it in the list?
 - On download we need to open action chooser not just open a link
 - Maybe sniff stream content for content type?
