@@ -112,7 +112,7 @@ URIInfo.prototype.getTitle = function()
     if (parts && parts[1]) {
         type = parts[1];
     }
-    var size = this.contentLength < 0? "?":
+    var size = this.contentLength < 0? "???":
         this.formatSize(this.contentLength);
     return "(" + size + " " + type + ") " + this.uri;
 }
