@@ -21,6 +21,7 @@
 var VideoSniffer = {
 
     video_limit: 20,
+    videos: new Object(),
 
     commanded: function(event)
     {
@@ -37,30 +38,24 @@ var VideoSniffer = {
         if (menu.firstChild.id != "videosniffer-collected-filler") {
             menu.insertBefore(menu.filler, menu.firstChild);
         }
+        this.videos = new Object();
     },
 
     addURL: function(uri_info)
     {
+        /* Check for duplicates */
+        if (this.videos[uri_info.uri])
+            return;
         var menu = document.getElementById("videosniffer-collected-menu");
 
-        /* Check for duplicates */
-        var n = 1;
-        for (var i = menu.firstChild;
-                (i.id != "videosniffer-collected-separator"
-                 && i.id != "videosniffer-collected-filler");
-                i = i.nextSibling) {
-            n += 1;
-            if (i.uri_info.uri == uri_info.uri)
-                return;
-        }
-
         /* Remove outdated items */
-        if (n > this.video_limit) {
-            var sep = document.getElementById("videosniffer-collected-separator");
-            for (var i = sep.previousSibling; n > this.video_limit;
-                    i = i.previousSibling) {
-                n -= 1;
-                menu.removeChild(i);
+        var c = this.videos.__count__ - this.video_limit;
+        if (c >= 0) {
+            var n = document.getElementById(
+                "videosniffer-collected-separator").previousSibling;
+            for (; c >= 0; c--, n = n.previousSibling) {
+                delete this.videos[n.uri_info.uri];
+                menu.removeChild(n);
             }
         }
 
@@ -76,6 +71,7 @@ var VideoSniffer = {
         menuitem.setAttribute("label", uri_info.getTitle());
         menuitem.setAttribute("oncommand", "VideoSniffer.commanded(event);");
         menu.insertBefore(menuitem, menu.firstChild);
+        this.videos[uri_info.uri] = 1;
     },
 
     observe: function(subject, topic, data)
