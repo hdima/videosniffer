@@ -107,7 +107,11 @@ function URIInfo(channel)
 
 URIInfo.prototype.getTitle = function()
 {
-    var type = this.contentType? this.contentType: "?";
+    var type = "???";
+    var parts = this.contentType.match(/^video\/(.*)/i);
+    if (parts && parts[1]) {
+        type = parts[1];
+    }
     var size = this.contentLength < 0? "?":
         this.formatSize(this.contentLength);
     return "(" + size + " " + type + ") " + this.uri;
