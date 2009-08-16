@@ -89,7 +89,7 @@ var VideoSniffer = {
         return (channel.requestSucceeded
             && (channel.contentType.match(/^video\//i)
             || channel.URI.path.search(
-                /\.(flv|rm|wmv|asf|ogm|mkv|mpg|mpe|m1s|mp2v|m2v|m2s|mpeg|avi|mp4|3gp|mov|qt)(\?.*)?$/i) >= 0))
+                /\.(flv|rm|wmv|asf|ogm|ogg|ogv|mkv|mpg|mpe|m1s|mp2v|m2v|m2s|mpeg|avi|mp4|3gp|mov|qt)(\?.*)?$/i) >= 0))
     }
 }
 
