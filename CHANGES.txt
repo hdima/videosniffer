@@ -1,5 +1,6 @@
 0.3 (2009-08-??)
 
+- Added option to setup maximal number of collected videos
 - Show content type and size with video links
 - More robust video sniffing
 
