@@ -23,6 +23,15 @@ var VideoSniffer = {
     video_limit: 20,
     videos: new Object(),
 
+    onLoad: function()
+    {
+        var observerService = Components.
+            classes["@mozilla.org/observer-service;1"].
+            getService(Components.interfaces.nsIObserverService);
+        observerService.addObserver(VideoSniffer,
+            "http-on-examine-response", false);
+    },
+
     getPrefs: function()
     {
         return Components.classes["@mozilla.org/preferences-service;1"]
@@ -139,13 +148,4 @@ URIInfo.prototype.formatSize = function(size)
     return s.toString() + suffixes[i];
 }
 
-
-function setup() {
-    var observerService = Components.
-        classes["@mozilla.org/observer-service;1"].
-        getService(Components.interfaces.nsIObserverService);
-    observerService.addObserver(VideoSniffer,
-        "http-on-examine-response", false);
-}
-
-window.addEventListener("load", setup, false);
+window.addEventListener("load", function(e) { VideoSniffer.onLoad(); }, false);
