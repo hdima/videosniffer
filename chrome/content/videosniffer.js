@@ -32,6 +32,15 @@ var VideoSniffer = {
             "http-on-examine-response", false);
     },
 
+    onUnload: function()
+    {
+        var observerService = Components.
+            classes["@mozilla.org/observer-service;1"].
+            getService(Components.interfaces.nsIObserverService);
+        observerService.removeObserver(VideoSniffer,
+            "http-on-examine-response");
+    },
+
     getPrefs: function()
     {
         return Components.classes["@mozilla.org/preferences-service;1"]
@@ -148,4 +157,7 @@ URIInfo.prototype.formatSize = function(size)
     return s.toString() + suffixes[i];
 }
 
-window.addEventListener("load", function(e) { VideoSniffer.onLoad(); }, false);
+window.addEventListener("load",
+    function(e) { VideoSniffer.onLoad(); }, false);
+window.addEventListener("unload",
+    function(e) { VideoSniffer.onUnload(); }, false);
