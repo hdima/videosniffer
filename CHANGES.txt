@@ -3,7 +3,7 @@
 - Added option to setup maximal number of collected videos
 - Show content type and size for video links
 - Added content type guessing based on filename extension
-- More robust video sniffing
+- Small fixes
 
 0.2 (2009-08-13)
 
