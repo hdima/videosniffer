@@ -9,6 +9,7 @@ files := \
 	COPYING.txt \
 	install.rdf \
 	chrome.manifest \
+	defaults/preferences/defaults.js \
 	$(wildcard chrome/content/*) \
 	$(wildcard chrome/locale/en-US/*)
 
