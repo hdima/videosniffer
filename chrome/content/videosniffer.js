@@ -106,16 +106,55 @@ var VideoSniffer = {
             return
         var channel = subject.QueryInterface(
             Components.interfaces.nsIHttpChannel);
-        if (this.needToAdd(channel))
-            this.addURL(new URIInfo(channel));
-    },
+        if (channel.requestSucceeded) {
+            var uri_info = new URIInfo(channel);
+            if (uri_info.isVideo())
+                this.addURL(uri_info);
+        }
+    }
+}
 
-    needToAdd: function(channel)
+
+var VideoContentTypes = {
+    "3gp": "video/3gpp",
+    axv: "video/annodex",
+    dl: "video/dl",
+    dif: "video/dv",
+    dv: "video/dv",
+    fli: "video/fli",
+    gl: "video/gl",
+    mpeg: "video/mpeg",
+    mpg: "video/mpeg",
+    mpe: "video/mpeg",
+    mp4: "video/mp4",
+    qt: "video/quicktime",
+    mov: "video/quicktime",
+    ogv: "video/ogg",
+    mxu: "video/vnd.mpegurl",
+    flv: "video/x-flv",
+    lsf: "video/x-la-asf",
+    lsx: "video/x-la-asf",
+    mng: "video/x-mng",
+    asf: "video/x-ms-asf",
+    asx: "video/x-ms-asf",
+    wm: "video/x-ms-wm",
+    wmv: "video/x-ms-wmv",
+    wmx: "video/x-ms-wmx",
+    wvx: "video/x-ms-wvx",
+    avi: "video/x-msvideo",
+    movie: "video/x-sgi-movie",
+    mpv: "video/x-matroska",
+    mkv: "video/x-matroska",
+
+    guessContentType: function(contentType, path)
     {
-        return (channel.requestSucceeded
-            && (channel.contentType.match(/^video\//i)
-            || channel.URI.path.search(
-                /\.(flv|rm|wmv|asf|ogm|ogg|ogv|mkv|mpg|mpe|m1s|mp2v|m2v|m2s|mpeg|avi|mp4|3gp|mov|qt)(\?.*)?$/i) >= 0))
+        var parts = path.match(/\.([a-z0-9]+)(\?.*)?$/i);
+        if (parts) {
+            var ext = parts[1];
+            if (VideoContentTypes[ext])
+                return VideoContentTypes[ext];
+        }
+        return contentType;
     }
 }
 
@@ -123,12 +162,21 @@ var VideoSniffer = {
 function URIInfo(channel)
 {
     this.uri = channel.URI.asciiSpec;
+    this.path = channel.URI.path;
     var referrer = channel.referrer;
     if (referrer)
         referrer = referrer.asciiSpec;
     this.referrer = referrer;
     this.contentType = channel.contentType;
+    if (!this.contentType.match(/^video\//i))
+        this.contentType = VideoContentTypes.guessContentType(
+            this.contentType, this.path);
     this.contentLength = channel.contentLength;
+}
+
+URIInfo.prototype.isVideo = function()
+{
+    return this.contentType.match(/^video\//i);
 }
 
 URIInfo.prototype.getTitle = function()
