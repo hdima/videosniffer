@@ -1,4 +1,4 @@
-0.3 (2009-08-??)
+0.3 (2009-08-17)
 
 - Added option to setup maximal number of collected videos
 - Show content type and size for video links
