@@ -23,6 +23,13 @@ var VideoSniffer = {
     video_limit: 20,
     videos: new Object(),
 
+    getPrefs: function()
+    {
+        return Components.classes["@mozilla.org/preferences-service;1"]
+            .getService(Components.interfaces.nsIPrefService)
+            .getBranch("extensions.videosniffer.");
+    },
+
     commanded: function(event)
     {
         var uri_info = event.target.uri_info;
@@ -49,7 +56,8 @@ var VideoSniffer = {
         var menu = document.getElementById("videosniffer-collected-menu");
 
         /* Remove outdated items */
-        var c = this.videos.__count__ - this.video_limit;
+        var c = this.videos.__count__
+            - this.getPrefs().getIntPref("videolimit");
         if (c >= 0) {
             var n = document.getElementById(
                 "videosniffer-collected-separator").previousSibling;

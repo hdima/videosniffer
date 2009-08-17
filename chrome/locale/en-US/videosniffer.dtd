@@ -1,3 +1,7 @@
 <!ENTITY filler.label "No videos collected">
 <!ENTITY collectedvideos.label "Collected Videos">
 <!ENTITY clearvideos.label "Clear List">
+
+<!ENTITY prefs.title "VideoSniffer Preferences">
+<!ENTITY prefs.limits-title "Limits:">
+<!ENTITY prefs.videolimit "Number of videos to collect:">
