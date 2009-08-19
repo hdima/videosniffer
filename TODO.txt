@@ -1,5 +1,3 @@
-- Numbering videos (optionally)
-- Optionally hide size and content type
 - Restore cookies on download? Simetimes download doesn't restore.
 - On download we need to open action chooser not just open a link
 - Maybe sniff stream content for content type?

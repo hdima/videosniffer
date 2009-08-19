@@ -1,3 +1,7 @@
+0.4 (2009-??-??)
+
+- Added options to show/hide file number, file size and file type
+
 0.3 (2009-08-17)
 
 - Added option to setup maximal number of collected videos

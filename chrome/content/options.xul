@@ -11,6 +11,12 @@
     <preferences>
       <preference id="extensions.videosniffer.videolimit"
         name="extensions.videosniffer.videolimit" type="int"/>
+      <preference id="extensions.videosniffer.shownumber"
+        name="extensions.videosniffer.shownumber" type="bool"/>
+      <preference id="extensions.videosniffer.showsize"
+        name="extensions.videosniffer.showsize" type="bool"/>
+      <preference id="extensions.videosniffer.showtype"
+        name="extensions.videosniffer.showtype" type="bool"/>
     </preferences>
  
     <groupbox>
@@ -21,6 +27,15 @@
           preference="extensions.videosniffer.videolimit"
           min="1" max="100"/>
       </hbox>
+    </groupbox>
+    <groupbox>
+      <caption label="&prefs.display-title;"/>
+      <checkbox preference="extensions.videosniffer.shownumber"
+        id="videosniffer.shownumber" label="&prefs.show-number;"/>
+      <checkbox preference="extensions.videosniffer.showsize"
+        id="videosniffer.showsize" label="&prefs.show-size;"/>
+      <checkbox preference="extensions.videosniffer.showtype"
+        id="videosniffer.showtype" label="&prefs.show-type;"/>
     </groupbox>
   </prefpane>
  
