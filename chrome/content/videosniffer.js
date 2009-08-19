@@ -92,9 +92,16 @@ var VideoSniffer = {
         }
 
         /* Add new URL */
+        this.counter++;
+
+        var shownumber = this.getPrefs().getBoolPref("shownumber");
+        var showsize = this.getPrefs().getBoolPref("showsize");
+        var showtype = this.getPrefs().getBoolPref("showtype");
+
         var menuitem = document.createElement("menuitem");
         menuitem.uri_info = uri_info;
-        menuitem.setAttribute("label", uri_info.getTitle(++this.counter));
+        menuitem.setAttribute("label", uri_info.getTitle(
+            shownumber? this.counter: null, showsize, showtype));
         menuitem.setAttribute("oncommand", "VideoSniffer.commanded(event);");
         menu.insertBefore(menuitem, menu.firstChild);
         this.videos[uri_info.uri] = 1;
@@ -179,16 +186,35 @@ URIInfo.prototype.isVideo = function()
     return this.contentType.match(/^video\//i);
 }
 
-URIInfo.prototype.getTitle = function(counter)
+URIInfo.prototype.getTitle = function(counter, showsize, showtype)
 {
-    var type = "???";
-    var parts = this.contentType.match(/^video\/(.*)/i);
-    if (parts && parts[1]) {
-        type = parts[1];
+    var header = "";
+
+    if (counter)
+        header += counter.toString() + ". ";
+
+    if (showsize) {
+        var size = this.contentLength < 0? "???":
+            this.formatSize(this.contentLength);
+        header += "(" + size;
     }
-    var size = this.contentLength < 0? "???":
-        this.formatSize(this.contentLength);
-    return counter.toString() + ". (" + size + " " + type + ") " + this.uri;
+
+    if (showtype) {
+        var type = "???";
+        var parts = this.contentType.match(/^video\/(.*)/i);
+        if (parts && parts[1]) {
+            type = parts[1];
+        }
+        if (showsize)
+            header += " " + type;
+        else
+            header += "(" + type;
+    }
+
+    if (showtype || showsize)
+        header += ") ";
+
+    return header + this.uri;
 }
 
 URIInfo.prototype.formatSize = function(size)
