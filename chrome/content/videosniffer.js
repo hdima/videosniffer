@@ -20,7 +20,7 @@
 
 var VideoSniffer = {
 
-    video_limit: 20,
+    counter: 0,
     videos: new Object(),
 
     onLoad: function()
@@ -94,7 +94,7 @@ var VideoSniffer = {
         /* Add new URL */
         var menuitem = document.createElement("menuitem");
         menuitem.uri_info = uri_info;
-        menuitem.setAttribute("label", uri_info.getTitle());
+        menuitem.setAttribute("label", uri_info.getTitle(++this.counter));
         menuitem.setAttribute("oncommand", "VideoSniffer.commanded(event);");
         menu.insertBefore(menuitem, menu.firstChild);
         this.videos[uri_info.uri] = 1;
@@ -179,7 +179,7 @@ URIInfo.prototype.isVideo = function()
     return this.contentType.match(/^video\//i);
 }
 
-URIInfo.prototype.getTitle = function()
+URIInfo.prototype.getTitle = function(counter)
 {
     var type = "???";
     var parts = this.contentType.match(/^video\/(.*)/i);
@@ -188,7 +188,7 @@ URIInfo.prototype.getTitle = function()
     }
     var size = this.contentLength < 0? "???":
         this.formatSize(this.contentLength);
-    return "(" + size + " " + type + ") " + this.uri;
+    return counter.toString() + ". (" + size + " " + type + ") " + this.uri;
 }
 
 URIInfo.prototype.formatSize = function(size)
