@@ -1,6 +1,6 @@
+- Option to limit videos by size (and ignore videos with unknown size)?
 - Add tooltips with full URL
 - Restore cookies on download? Simetimes download doesn't restore.
 - On download we need to open action chooser not just open a link
 - Maybe sniff stream content for content type?
 - Try to guess download speed?
-- Option to limit videos by size?
