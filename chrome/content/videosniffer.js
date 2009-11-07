@@ -23,28 +23,16 @@ var VideoSniffer = {
     counter: 0,
     videos: new Object(),
 
-    /* On load callback */
     onLoad: function()
     {
-        /* HTTP observer */
         this.getObserver().addObserver(VideoSniffer,
             "http-on-examine-response", false);
-
-        /* Preference observer */
-        var branch = this.getPrefs();
-        branch.QueryInterface(Components.interfaces.nsIPrefBranch2);
-        branch.addObserver("", this, false);
     },
 
-    /* On unload callback */
     onUnload: function()
     {
-        /* HTTP observer */
         this.getObserver().removeObserver(VideoSniffer,
             "http-on-examine-response");
-
-        /* Preference observer */
-        this.getPrefs().removeObserver("", this);
     },
 
     getObserver: function()
@@ -121,18 +109,8 @@ var VideoSniffer = {
 
     observe: function(subject, topic, data)
     {
-        switch (topic) {
-            case "http-on-examine-response":
-                this.examineResponse(subject, data);
-                break;
-            case "nsPref:changed":
-                this.preferencesChanged(subject, data);
-                break;
-        }
-    },
-
-    examineResponse: function(subject, data)
-    {
+        if (topic != "http-on-examine-response")
+            return
         var channel = subject.QueryInterface(
             Components.interfaces.nsIHttpChannel);
         if (channel.requestSucceeded) {
@@ -140,10 +118,6 @@ var VideoSniffer = {
             if (uri_info.isVideo())
                 this.addURL(uri_info);
         }
-    },
-
-    preferencesChanged: function(subject, data)
-    {
     }
 }
 
