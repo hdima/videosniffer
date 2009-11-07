@@ -20,7 +20,6 @@
 
 var VideoSniffer = {
 
-    counter: 0,
     videos: new Object(),
 
     onLoad: function()
@@ -55,35 +54,25 @@ var VideoSniffer = {
         event.stopPropagation();
     },
 
+    clearVideos: function(menu)
+    {
+        this.clearMenu(menu);
+        if (menu.firstChild.id != "videosniffer-collected-filler") {
+            menu.insertBefore(this.filler, menu.firstChild);
+        }
+        this.videos = new Object();
+    },
+
     clearMenu: function(menu)
     {
         while (menu.firstChild.id != "videosniffer-collected-separator"
                 && menu.firstChild.id != "videosniffer-collected-filler")
             menu.removeChild(menu.firstChild);
-        if (menu.firstChild.id != "videosniffer-collected-filler") {
-            menu.insertBefore(menu.filler, menu.firstChild);
-        }
-        this.videos = new Object();
     },
 
-    addURL: function(uri_info)
+    buildMenu: function(menu)
     {
-        /* Check for duplicates */
-        if (this.videos[uri_info.uri])
-            return;
-        var menu = document.getElementById("videosniffer-collected-menu");
-
-        /* Remove outdated items */
-        var c = this.videos.__count__
-            - this.getPrefs().getIntPref("videolimit");
-        if (c >= 0) {
-            var n = document.getElementById(
-                "videosniffer-collected-separator").previousSibling;
-            for (; c >= 0; c--, n = n.previousSibling) {
-                delete this.videos[n.uri_info.uri];
-                menu.removeChild(n);
-            }
-        }
+        this.clearMenu(menu);
 
         /* Remove filler */
         if (menu.firstChild.id == "videosniffer-collected-filler") {
@@ -91,20 +80,28 @@ var VideoSniffer = {
             menu.removeChild(menu.firstChild);
         }
 
-        /* Add new URL */
-        this.counter++;
-
         var shownumber = this.getPrefs().getBoolPref("shownumber");
         var showsize = this.getPrefs().getBoolPref("showsize");
         var showtype = this.getPrefs().getBoolPref("showtype");
 
-        var menuitem = document.createElement("menuitem");
-        menuitem.uri_info = uri_info;
-        menuitem.setAttribute("label", uri_info.getTitle(
-            shownumber? this.counter: null, showsize, showtype));
-        menuitem.setAttribute("oncommand", "VideoSniffer.commanded(event);");
-        menu.insertBefore(menuitem, menu.firstChild);
-        this.videos[uri_info.uri] = 1;
+        var counter = 1;
+        for (uri in this.videos) {
+            uri_info = this.videos[uri];
+            var menuitem = document.createElement("menuitem");
+            menuitem.uri_info = uri_info;
+            menuitem.setAttribute("label", uri_info.getTitle(
+                shownumber? counter++: null, showsize, showtype));
+            menuitem.setAttribute("oncommand",
+                "VideoSniffer.commanded(event);");
+            menu.insertBefore(menuitem, menu.firstChild);
+        }
+    },
+
+    addURL: function(uri_info)
+    {
+        if (this.videos[uri_info.uri])
+            return;
+        this.videos[uri_info.uri] = uri_info;
     },
 
     observe: function(subject, topic, data)
