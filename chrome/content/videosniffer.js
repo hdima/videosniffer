@@ -20,6 +20,7 @@
 
 var VideoSniffer = {
 
+    counter: 1,
     videos: new Object(),
 
     onLoad: function()
@@ -57,9 +58,7 @@ var VideoSniffer = {
     clearVideos: function(menu)
     {
         this.clearMenu(menu);
-        if (menu.firstChild.id != "videosniffer-collected-filler") {
-            menu.insertBefore(this.filler, menu.firstChild);
-        }
+        this.counter = 1;
         this.videos = new Object();
     },
 
@@ -68,11 +67,21 @@ var VideoSniffer = {
         while (menu.firstChild.id != "videosniffer-collected-separator"
                 && menu.firstChild.id != "videosniffer-collected-filler")
             menu.removeChild(menu.firstChild);
+        if (menu.firstChild.id != "videosniffer-collected-filler") {
+            menu.insertBefore(menu.filler, menu.firstChild);
+        }
     },
 
     buildMenu: function(menu)
     {
         this.clearMenu(menu);
+
+        var count = 0;
+        for (uri in this.videos)
+            count++;
+
+        if (count == 0)
+            return;
 
         /* Remove filler */
         if (menu.firstChild.id == "videosniffer-collected-filler") {
@@ -83,17 +92,22 @@ var VideoSniffer = {
         var shownumber = this.getPrefs().getBoolPref("shownumber");
         var showsize = this.getPrefs().getBoolPref("showsize");
         var showtype = this.getPrefs().getBoolPref("showtype");
+        var to_delete = count - this.getPrefs().getIntPref("videolimit");
 
-        var counter = 1;
         for (uri in this.videos) {
-            uri_info = this.videos[uri];
-            var menuitem = document.createElement("menuitem");
-            menuitem.uri_info = uri_info;
-            menuitem.setAttribute("label", uri_info.getTitle(
-                shownumber? counter++: null, showsize, showtype));
-            menuitem.setAttribute("oncommand",
-                "VideoSniffer.commanded(event);");
-            menu.insertBefore(menuitem, menu.firstChild);
+            if (to_delete > 0) {
+                to_delete--;
+                delete this.videos[uri];
+            } else {
+                var uri_info = this.videos[uri];
+                var menuitem = document.createElement("menuitem");
+                menuitem.uri_info = uri_info;
+                menuitem.setAttribute("label", uri_info.getTitle(
+                    shownumber, showsize, showtype));
+                menuitem.setAttribute("oncommand",
+                    "VideoSniffer.commanded(event);");
+                menu.insertBefore(menuitem, menu.firstChild);
+            }
         }
     },
 
@@ -111,9 +125,11 @@ var VideoSniffer = {
         var channel = subject.QueryInterface(
             Components.interfaces.nsIHttpChannel);
         if (channel.requestSucceeded) {
-            var uri_info = new URIInfo(channel);
-            if (uri_info.isVideo())
+            var uri_info = new URIInfo(channel, this.counter);
+            if (uri_info.isVideo()) {
                 this.addURL(uri_info);
+                this.counter++;
+            }
         }
     }
 }
@@ -163,7 +179,7 @@ var VideoContentTypes = {
 }
 
 
-function URIInfo(channel)
+function URIInfo(channel, counter)
 {
     this.uri = channel.URI.asciiSpec;
     this.path = channel.URI.path;
@@ -176,6 +192,7 @@ function URIInfo(channel)
         this.contentType = VideoContentTypes.guessContentType(
             this.contentType, this.path);
     this.contentLength = channel.contentLength;
+    this.counter = counter;
 }
 
 URIInfo.prototype.isVideo = function()
@@ -183,12 +200,12 @@ URIInfo.prototype.isVideo = function()
     return this.contentType.match(/^video\//i);
 }
 
-URIInfo.prototype.getTitle = function(counter, showsize, showtype)
+URIInfo.prototype.getTitle = function(shownumber, showsize, showtype)
 {
     var header = "";
 
-    if (counter)
-        header += counter.toString() + ". ";
+    if (shownumber)
+        header += this.counter.toString() + ". ";
 
     if (showsize) {
         var size = this.contentLength < 0? "???":
