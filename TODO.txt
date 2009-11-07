@@ -1,4 +1,3 @@
-- Support Firefox 3.5
 - Update menu display on options changes
 - Add tooltips with full URL
 - Restore cookies on download? Simetimes download doesn't restore.

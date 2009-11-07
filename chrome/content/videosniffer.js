@@ -25,20 +25,20 @@ var VideoSniffer = {
 
     onLoad: function()
     {
-        var observerService = Components.
-            classes["@mozilla.org/observer-service;1"].
-            getService(Components.interfaces.nsIObserverService);
-        observerService.addObserver(VideoSniffer,
+        this.getObserver().addObserver(VideoSniffer,
             "http-on-examine-response", false);
     },
 
     onUnload: function()
     {
-        var observerService = Components.
-            classes["@mozilla.org/observer-service;1"].
-            getService(Components.interfaces.nsIObserverService);
-        observerService.removeObserver(VideoSniffer,
+        this.getObserver().removeObserver(VideoSniffer,
             "http-on-examine-response");
+    },
+
+    getObserver: function()
+    {
+        return Components.classes["@mozilla.org/observer-service;1"].
+            getService(Components.interfaces.nsIObserverService);
     },
 
     getPrefs: function()
