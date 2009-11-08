@@ -104,7 +104,8 @@ var VideoSniffer = {
                 menuitem.uri_info = uri_info;
                 menuitem.setAttribute("label", uri_info.getTitle(
                     shownumber, showsize, showtype));
-                menuitem.setAttribute("tooltiptext", uri);
+                menuitem.setAttribute("tooltiptext",
+                    uri_info.getTooltipText());
                 menuitem.setAttribute("oncommand",
                     "VideoSniffer.commanded(event);");
                 menu.insertBefore(menuitem, menu.firstChild);
@@ -211,6 +212,15 @@ URIInfo.prototype.isVideo = function(ignorejunk)
 {
     return this.contentType.match(/^video\//i)
         && (!ignorejunk || this.contentLength > 153600);
+}
+
+URIInfo.prototype.getTooltipText = function()
+{
+    var text = "";
+    if (this.referrerTitle) {
+        text += "Referrer's Title: " + this.referrerTitle + "\n";
+    }
+    return text + "URL: " + this.uri;
 }
 
 URIInfo.prototype.getTitle = function(shownumber, showsize, showtype)
