@@ -4,8 +4,11 @@
 
 <!ENTITY prefs.title "VideoSniffer Preferences">
 <!ENTITY prefs.limits-title "Limits:">
-<!ENTITY prefs.videolimit "Number of videos to collect:">
+<!ENTITY prefs.videolimit "Number of videos:">
 <!ENTITY prefs.display-title "Display options:">
+<!ENTITY prefs.ignore-junk "Ignore possible AD videos">
+<!ENTITY prefs.ignore-junk-title
+    "Ignore very small videos and videos with unknown size">
 <!ENTITY prefs.show-number "Show file number">
 <!ENTITY prefs.show-size "Show file size">
 <!ENTITY prefs.show-type "Show file type">
