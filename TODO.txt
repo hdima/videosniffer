@@ -1,5 +1,3 @@
-- Option to limit videos by size (and ignore videos with unknown size)? Just
-  hide this videos and display them on request (don't know how to do it right)?
 - Add tooltips with full URL
 - Restore cookies on download? Simetimes download doesn't restore.
 - On download we need to open action chooser not just open a link

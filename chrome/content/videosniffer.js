@@ -126,7 +126,8 @@ var VideoSniffer = {
             Components.interfaces.nsIHttpChannel);
         if (channel.requestSucceeded) {
             var uri_info = new URIInfo(channel, this.counter);
-            if (uri_info.isVideo()) {
+            var ignorejunk = this.getPrefs().getBoolPref("ignorejunk");
+            if (uri_info.isVideo(ignorejunk)) {
                 this.addURL(uri_info);
                 this.counter++;
             }
@@ -195,9 +196,10 @@ function URIInfo(channel, counter)
     this.counter = counter;
 }
 
-URIInfo.prototype.isVideo = function()
+URIInfo.prototype.isVideo = function(ignorejunk)
 {
-    return this.contentType.match(/^video\//i);
+    return this.contentType.match(/^video\//i)
+        && (!ignorejunk || this.contentLength > 153600);
 }
 
 URIInfo.prototype.getTitle = function(shownumber, showsize, showtype)
