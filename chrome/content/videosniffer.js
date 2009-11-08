@@ -51,7 +51,7 @@ var VideoSniffer = {
     commanded: function(event)
     {
         var uri_info = event.target.uri_info;
-        openUILinkIn(uri_info.uri, "current", false, null, uri_info.referrer);
+        openUILinkIn(uri_info.uri, "current");
         event.stopPropagation();
     },
 
@@ -185,10 +185,6 @@ function URIInfo(channel, counter)
 {
     this.uri = channel.URI.asciiSpec;
     this.path = channel.URI.path;
-    var referrer = channel.referrer;
-    if (referrer)
-        referrer = referrer.asciiSpec;
-    this.referrer = referrer;
     this.contentType = channel.contentType;
     if (!this.contentType.match(/^video\//i))
         this.contentType = VideoContentTypes.guessContentType(
