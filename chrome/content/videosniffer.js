@@ -193,7 +193,6 @@ function URIInfo(channel, counter)
     this.contentLength = channel.contentLength;
     this.counter = counter;
 
-    this.referrer = null;
     this.referrerTitle = "";
     if (channel.notificationCallbacks) {
         try {
@@ -201,7 +200,6 @@ function URIInfo(channel, counter)
                 Components.interfaces.nsIDOMWindow);
             if (window) {
                 var doc = window.top.document;
-                this.referrer = doc.URL;
                 this.referrerTitle = doc.title;
             }
         } catch (e if e.name == "NS_NOINTERFACE") {}
@@ -211,7 +209,7 @@ function URIInfo(channel, counter)
 URIInfo.prototype.isVideo = function(ignorejunk)
 {
     return this.contentType.match(/^video\//i)
-        && (!ignorejunk || this.contentLength > 153600);
+        && (!ignorejunk || this.contentLength > 204800);
 }
 
 URIInfo.prototype.getTooltipText = function()
