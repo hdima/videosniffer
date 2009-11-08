@@ -191,6 +191,20 @@ function URIInfo(channel, counter)
             this.contentType, this.path);
     this.contentLength = channel.contentLength;
     this.counter = counter;
+
+    this.referrer = null;
+    this.referrerTitle = "";
+    if (channel.notificationCallbacks) {
+        try {
+            var window = channel.notificationCallbacks.getInterface(
+                Components.interfaces.nsIDOMWindow);
+            if (window) {
+                var doc = window.document;
+                this.referrer = doc.URL;
+                this.referrerTitle = doc.title;
+            }
+        } catch (e if e.name == "NS_NOINTERFACE") {}
+    }
 }
 
 URIInfo.prototype.isVideo = function(ignorejunk)
