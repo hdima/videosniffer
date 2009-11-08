@@ -104,6 +104,7 @@ var VideoSniffer = {
                 menuitem.uri_info = uri_info;
                 menuitem.setAttribute("label", uri_info.getTitle(
                     shownumber, showsize, showtype));
+                menuitem.setAttribute("tooltiptext", uri);
                 menuitem.setAttribute("oncommand",
                     "VideoSniffer.commanded(event);");
                 menu.insertBefore(menuitem, menu.firstChild);
