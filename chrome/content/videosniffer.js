@@ -200,7 +200,7 @@ function URIInfo(channel, counter)
             var window = channel.notificationCallbacks.getInterface(
                 Components.interfaces.nsIDOMWindow);
             if (window) {
-                var doc = window.document;
+                var doc = window.top.document;
                 this.referrer = doc.URL;
                 this.referrerTitle = doc.title;
             }
@@ -217,10 +217,9 @@ URIInfo.prototype.isVideo = function(ignorejunk)
 URIInfo.prototype.getTooltipText = function()
 {
     var text = "";
-    if (this.referrerTitle) {
-        text += "Referrer's Title: " + this.referrerTitle + "\n";
-    }
-    return text + "URL: " + this.uri;
+    if (this.referrerTitle)
+        text += this.referrerTitle + "\n\n";
+    return text + this.uri;
 }
 
 URIInfo.prototype.getTitle = function(shownumber, showsize, showtype)
@@ -251,7 +250,7 @@ URIInfo.prototype.getTitle = function(shownumber, showsize, showtype)
     if (showtype || showsize)
         header += ") ";
 
-    return header + this.uri;
+    return header + (this.referrerTitle? this.referrerTitle: this.uri);
 }
 
 URIInfo.prototype.formatSize = function(size)
