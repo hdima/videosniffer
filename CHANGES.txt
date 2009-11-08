@@ -1,6 +1,8 @@
 0.4 (2009-11-??)
 
-- Added tooltip with referrer's page title and full URL for every menu item
+- Show referrer's page title instead of URL if possible
+- Added tooltip with full referrer's page title and full URL for every menu
+  item
 - Added option to ignore possible AD videos (videos with small or unknown
   size).
 - Added options to show/hide number, file size and file type
