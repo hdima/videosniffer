@@ -1,5 +1,7 @@
 0.4 (2009-11-??)
 
+- Added option to ignore possible AD videos (videos with small or unknown
+  size).
 - Added options to show/hide number, file size and file type
 - Added numbering for videos
 
