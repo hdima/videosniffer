@@ -1,3 +1,4 @@
+- What about sites like fora.tv?
 - What about referrer? It seems doesn't work.
 - Restore cookies on download? Simetimes download doesn't restore.
 - On download we need to open action chooser not just open a link.
