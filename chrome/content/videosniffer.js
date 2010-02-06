@@ -155,6 +155,7 @@ var VideoContentTypes = {
     ogv: "video/ogg",
     mxu: "video/vnd.mpegurl",
     flv: "video/x-flv",
+    fid: "video/x-flv",
     lsf: "video/x-la-asf",
     lsx: "video/x-la-asf",
     mng: "video/x-mng",
