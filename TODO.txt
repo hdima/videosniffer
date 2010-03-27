@@ -1,3 +1,4 @@
+- Numbers sometimes don't go sequentially
 - What about sites like fora.tv?
 - What about referrer? It seems doesn't work.
 - Restore cookies on download? Simetimes download doesn't restore.
