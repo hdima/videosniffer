@@ -1,3 +1,4 @@
 content videosniffer chrome/content/
-locale videosniffer en-US chrome/locale/en-US/
+locale videosniffer en chrome/locale/en/
+locale videosniffer ru chrome/locale/ru/
 overlay chrome://browser/content/browser.xul chrome://videosniffer/content/videosniffer.xul

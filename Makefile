@@ -11,7 +11,7 @@ files := \
 	chrome.manifest \
 	defaults/preferences/defaults.js \
 	$(wildcard chrome/content/*) \
-	$(wildcard chrome/locale/en-US/*)
+	$(wildcard chrome/locale/*/*)
 
 $(XPI): $(files)
 	$(ZIP) $@ $^

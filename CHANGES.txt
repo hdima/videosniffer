@@ -1,6 +1,7 @@
 0.5 (2010-04-25)
 
 - Firefox 3.6 now supported
+- Added Russian localization
 
 0.4 (2009-11-09)
 
