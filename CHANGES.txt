@@ -1,3 +1,7 @@
+0.5 (2010-04-25)
+
+- Firefox 3.6 now supported
+
 0.4 (2009-11-09)
 
 - Show referrer's page title instead of URL if possible
