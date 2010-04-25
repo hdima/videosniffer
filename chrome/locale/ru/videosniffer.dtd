@@ -1,0 +1,14 @@
+<!ENTITY filler.label "Видео пока не найдены">
+<!ENTITY collectedvideos.label "Собранные видео">
+<!ENTITY clearvideos.label "Очистить список">
+
+<!ENTITY prefs.title "Настройки VideoSniffer">
+<!ENTITY prefs.limits-title "Ограничения:">
+<!ENTITY prefs.videolimit "Количество ссылок на видео:">
+<!ENTITY prefs.display-title "Настройки списка:">
+<!ENTITY prefs.ignore-junk "Игнорировать возможные рекламные видео">
+<!ENTITY prefs.ignore-junk-title
+    "Игнорировать маленькие видео и видео с неизвестным размером">
+<!ENTITY prefs.show-number "Показывать номер видео">
+<!ENTITY prefs.show-size "Показывать размер видео">
+<!ENTITY prefs.show-type "Показывать тип видео">
