@@ -19,7 +19,7 @@
     <em:name>Video Sniffer</em:name>
     <em:description>Sniff and collect URLs to video files for later download</em:description>
     <em:creator>Dmitry Vasiliev</em:creator>
-    <em:homepageURL>http://hlabs.spb.ru/projects/videosniffer/</em:homepageURL>
+    <em:homepageURL>https://addons.mozilla.org/ru/firefox/addon/video-sniffer/</em:homepageURL>
     <em:optionsURL>chrome://videosniffer/content/options.xul</em:optionsURL>
   </Description>      
 </RDF>
